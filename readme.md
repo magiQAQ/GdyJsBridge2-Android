@@ -15,19 +15,19 @@
 2. 在当前Module的build.gradle文件中配置如下:
 
 Gradle 7.0之前
-
+   
 ```groovy
 android {
-	...
-	repositories {
-		flatDir {
-			dirs 'libs'
-		}
-	}
+   ...
+   repositories {
+      flatDir {
+         dirs 'libs'
+      }
+   }
 }
 
 dependencies {
-	api(name: 'GdyJsBridge-release', ext: 'aar')
+   api(name: 'GdyJsBridge-release', ext: 'aar')
 }
 
 ```
@@ -35,7 +35,7 @@ dependencies {
 Gradle 7.0之后
 ```groovy
 dependencies {
-	api files('libs/GdyJsBridge-release.aar')
+   api files('libs/GdyJsBridge-release.aar')
 }
 ```
 
@@ -74,7 +74,7 @@ In Html
 In JavaScript
 ```javascript
 window._gdyBridge.register('getStringFromJs', function(a, b, c) {
-	return a + b + c + " from JavaScript";
+   return a + b + c + " from JavaScript";
 })
 ```
 注意: 返回值可以为基本类型或null，也可以是json Element(对象、数组等)
@@ -83,24 +83,24 @@ In Java
 ```java
 Object[] args = {1, "a", false};
 webView.callJsFunction("getStringFromJs", args, (Boolean success, Object value) -> {
-	if (success) {
-		Toast.makeText(this, value != null ? value.toString() : "无返回值", Toast.LENGTH_SHORT).show();
-	} else {
-		Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show();
-		Log.e("GdyBridgeWebView", "方法methodName调用失败:" + value.toString());
-	}
+   if (success) {
+      Toast.makeText(this, value != null ? value.toString() : "无返回值", Toast.LENGTH_SHORT).show();
+   } else {
+      Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show();
+      Log.e("GdyBridgeWebView", "方法methodName调用失败:" + value.toString());
+   }
 }); // 屏幕上显示 1afalse from JavaScript
 ```
 
 In Kotlin
 ```kotlin
 webView.callJsFunction("getStringFromJs", arrayOf(1, "a", false)) { success: Boolean, value: Any? ->
-	if (success) {
-		Toast.makeText(this, value?.toString()?:"无返回值", Toast.LENGTH_SHORT).show()
-	} else {
-		Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show()
-		Log.e("GdyBridgeWebView", "方法methodName调用失败: $value")
-	}
+   if (success) {
+      Toast.makeText(this, value?.toString()?:"无返回值", Toast.LENGTH_SHORT).show()
+   } else {
+      Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show()
+      Log.e("GdyBridgeWebView", "方法methodName调用失败: $value")
+   }
 } // 屏幕上显示 1afalse from JavaScript
 ```
 如果调用不成功的话，success 为 false，同时value字段将是错误信息（String）。
@@ -111,44 +111,44 @@ value字段前端如果返回的是json Element的话，对应则是org.json包�
 In JavaScript 
 ```javascript
 window._gdyBridge.register('getObjectFromJs', function() {
-	return { key1: "value1", key2: "value2" };
+   return { key1: "value1", key2: "value2" };
 });
 ```
 
 In Java
 ```java
 webView.callJsFunction("getObjectFromJs", (success, value) -> {
-	if (success) {
-		JSONObject jsonObject = (JSONObject) value;
-		String str;
-		if (jsonObject == null) {
-			str = "无返回值";
-		} else {
-			str = "key1: " + jsonObject.optString("key1") + ", key2: " + jsonObject.optString("key2");
-		}
-		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-	} else {
-		Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show();
-		Log.e("GdyBridgeWebView", "方法getObjectFromJs调用失败:" + value);
-	}
+   if (success) {
+      JSONObject jsonObject = (JSONObject) value;
+      String str;
+      if (jsonObject == null) {
+         str = "无返回值";
+      } else {
+         str = "key1: " + jsonObject.optString("key1") + ", key2: " + jsonObject.optString("key2");
+      }
+      Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+   } else {
+      Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show();
+      Log.e("GdyBridgeWebView", "方法getObjectFromJs调用失败:" + value);
+   }
 });
 ```
 
 In Kotlin
 ```kotlin
 webView.callJsFunction("getObjectFromJs") { success, value ->
-	if (success) {
-		val jsonObject = value as JSONObject?
-		val str = if (jsonObject == null) {
-			"无返回值"
-		} else {
-			"key1: ${jsonObject.optString("key1")}, key2: ${jsonObject.optString("key2")}"
-		}
-		Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
-	} else {
-		Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show()
-		Log.e("GdyBridgeWebView", "方法getObjectFromJs调用失败: $value")
-	}
+   if (success) {
+      val jsonObject = value as JSONObject?
+      val str = if (jsonObject == null) {
+         "无返回值"
+      } else {
+         "key1: ${jsonObject.optString("key1")}, key2: ${jsonObject.optString("key2")}"
+      }
+      Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+   } else {
+      Toast.makeText(this, "调用失败", Toast.LENGTH_SHORT).show()
+      Log.e("GdyBridgeWebView", "方法getObjectFromJs调用失败: $value")
+   }
 }
 ```
 
@@ -159,33 +159,33 @@ webView.callJsFunction("getObjectFromJs") { success, value ->
 In Java
 ```java
 webView.register("getStringFromNative", (Object[] args) -> {
-	StringBuilder result = new StringBuilder();
-	for (Object arg : args) {
-		result.append(arg.toString());
-	}
-	return result.toString();
+   StringBuilder result = new StringBuilder();
+   for (Object arg : args) {
+      result.append(arg.toString());
+   }
+   return result.toString();
 });
 ```
 
 In Kotlin
 ```kotlin
 webView.register("getStringFromNative") { args: Array<Any> -> 
-	return@register buildString {
-		for (arg in args) {
-			append(arg.toString())
-		}
-	}
+   return@register buildString {
+      for (arg in args) {
+         append(arg.toString())
+      }
+   }
 }
 ```
 
 In JavaScript
 ```javascript
 window._gdyBridge.callNative('getStringFromNative', ['aaa','bbb', true], function(ret) {
-	if (ret.success) {
-		console.log(`返回结果:${ret.data}`);
-	} else {
-		console.log(`调用失败:${ret.data}`);
-	}
+   if (ret.success) {
+      console.log(`返回结果:${ret.data}`);
+   } else {
+      console.log(`调用失败:${ret.data}`);
+   }
 });
 ```
 
@@ -196,34 +196,34 @@ window._gdyBridge.callNative('getStringFromNative', ['aaa','bbb', true], functio
 In Java
 ```java
 webView.register("getObjectFromNative", (Object[] args) -> {
-	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("key1", "value1");
-	jsonObject.put("key2", "value2");
-	return jsonObject;
+   JSONObject jsonObject = new JSONObject();
+   jsonObject.put("key1", "value1");
+   jsonObject.put("key2", "value2");
+   return jsonObject;
 });
 ```
 
 In Kotlin
 ```kotlin
 webView.register("getObjectFromNative") {
-	return@register JSONObject().apply {
-		put("key1", "value1")
-		put("key2", "value2")
-	}
+   return@register JSONObject().apply {
+      put("key1", "value1")
+      put("key2", "value2")
+   }
 }
 ```
 
 In JavaScript
 ```javascript 
 window._gdyBridge.callNative('getObjectFromNative', null, function(success, data) {
-	if (success) {
-		const str = JSON.stringify(data);
-		console.log(`返回结果:${str}`);
-		document.getElementById('bbb').innerHTML = str;
-	} else {
-		console.log(`调用失败:${data}`);
-		document.getElementById('bbb').innerHTML = `调用失败:${data}`;
-	}
+   if (success) {
+      const str = JSON.stringify(data);
+      console.log(`返回结果:${str}`);
+      document.getElementById('bbb').innerHTML = str;
+   } else {
+      console.log(`调用失败:${data}`);
+      document.getElementById('bbb').innerHTML = `调用失败:${data}`;
+   }
 });
 ```
 ### 移除方法
