@@ -44,6 +44,7 @@ dependencies {
 ### 初始化
 
 Android端初始化
+
 In Java
 ```java
 import com.gdy.jsbridge.GdyBridgeWebView;
@@ -60,6 +61,7 @@ val webView = findViewById<GdyBridgeWebView>(R.id.webView);
 GdyBridgeWebView继承于Android原生的WebView，因此WebView的方法都可以正常使用。
 
 前端初始化
+
 In Html
 ```html
 <script src="./gdyBridge.js"></script>
@@ -154,7 +156,7 @@ webView.callJsFunction("getObjectFromJs") { success, value ->
 
 ### Android 原生提供方法，JavaScript来调用
 
-传递字符串:
+传递字符串
 
 In Java
 ```java
@@ -189,7 +191,7 @@ window._gdyBridge.callNative('getStringFromNative', ['aaa','bbb', true], functio
 });
 ```
 
-传递对象:
+传递对象
 
 如果调用的时候没有传参的话, args将是个空数组, 但不是null
 
