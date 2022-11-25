@@ -193,7 +193,7 @@ window._gdyBridge.callNative('getStringFromNative', ['aaa','bbb', true], functio
 
 传递对象
 
-如果调用的时候没有传参的话, args将是个空数组, 但不是null
+如果调用的时候没有传参的话, args将是个空数组, 而不是null
 
 In Java
 ```java
