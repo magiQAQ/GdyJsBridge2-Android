@@ -59,6 +59,7 @@ import com.gdy.jsbridge.GdyBridgeWebView
 val webView = findViewById<GdyBridgeWebView>(R.id.webView);
 ```
 GdyBridgeWebView继承于Android原生的WebView，因此WebView的方法都可以正常使用。
+如需要更改UserAgent, 请确保更改后的UserAgent带有"GdyBridgeWebView"的标识
 
 前端初始化
 
@@ -67,7 +68,6 @@ In Html
 <script src="./gdyBridge.js"></script>
 ```
 该js脚本会根据当前用户的userAgent自动去初始化，前端不用过多处理，只需保证window下没有挂载"\_gdyBridge"同名对象即可。
-如需要更改UserAgent, 请确保更改后的UserAgent带有"GdyBridgeWebView"的标识
 
 
 ### JavaScript提供一个方法，Android 原生去调用
