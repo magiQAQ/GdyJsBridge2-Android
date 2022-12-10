@@ -67,9 +67,12 @@ In Html
 <script src="./gdyBridge.js"></script>
 ```
 该js脚本会根据当前用户的userAgent自动去初始化，前端不用过多处理，只需保证window下没有挂载"\_gdyBridge"同名对象即可。
+如需要更改UserAgent, 请确保更改后的UserAgent带有"GdyBridgeWebView"的标识
 
 
 ### JavaScript提供一个方法，Android 原生去调用
+
+注意：调用方法的时机只要在webView.loadUrl(String)之后即可,不需要自己去主动监听网页加载是否完成,封装的WebVew内部已经处理过了。
 
 传递字符串:
 

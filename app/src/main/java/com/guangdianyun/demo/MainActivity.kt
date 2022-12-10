@@ -3,6 +3,9 @@ package com.guangdianyun.demo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.Toast
 import com.gdy.jsbridge.GdyBridgeWebView
@@ -21,7 +24,19 @@ class MainActivity : AppCompatActivity() {
         btnGetString = findViewById(R.id.btn_get_string)
         btnGetObject = findViewById(R.id.btn_get_object)
 
+        webView.webViewClient = object: WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                view?.loadUrl(request?.url.toString())
+                return true
+            }
+        }
+
+//        webView.loadUrl("https://web.guangdianyun.tv/live/1000376?uin=1000")
         webView.loadUrl("file:///android_asset/test.html")
+
+        // 在loadUrl之后,就可以直接调用callJsFunction(), 可以不用等到网页加载完再执行
+//        webView.callJsFunction("onLimitedMode")
+
 
         btnGetString.setOnClickListener {
             webView.callJsFunction("getStringFromJs", arrayOf(1, "a", false)) { success: Boolean, value: Any? ->
